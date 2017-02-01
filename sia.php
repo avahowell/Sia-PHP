@@ -9,7 +9,7 @@
 
 namespace Sia;
 
-include('./Requests/library/Requests.php');
+require_once __DIR__ . '/Requests/library/Requests.php';
 \Requests::register_autoloader();
 
 class Client {
@@ -41,7 +41,7 @@ class Client {
 		if (!is_string($apiaddr)) {
 			throw new \InvalidArgumentException('api addr must be a string');
 		}
-		$this->apiaddr = $apiaddr;
+		$this->apiaddr = 'http://' . $apiaddr;
 	}	
 
 	// Daemon API
