@@ -66,5 +66,12 @@ class Client {
 	public function renterFiles() {
 		return $this->apiGet('/renter/files')->files;
 	}
+
+	// download downloads the file at $siapath to $dest. This is a blocking call
+	// and returns the file handle of the downloaded file.
+	public function download($siapath, $dest) {
+		$res = \Requests::get($this->apiaddr . '/renter/download/' . $siapath . '?destination=' . $dest, array('User-Agent' => 'Sia-Agent'));
+		return fopen($dest, 'r');
+	}
 }
 
