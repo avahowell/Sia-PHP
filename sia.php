@@ -26,9 +26,9 @@ class Client {
 		return json_decode($res->body);
 	}
 
-	private function apiPost($route, $params) {
+	private function apiPost($route) {
 		$url = $this->apiaddr . $route;
-		$res = \Requests::post($url, array('User-Agent' => 'Sia-Agent'), json_encode($params));
+		$res = \Requests::post($url, array('User-Agent' => 'Sia-Agent'));
 
 		if ( $res->status_code < 200 || $res->status_code > 299 || !$res->success ) {
 			throw new \Exception(json_decode($res->body)->message);
@@ -72,6 +72,18 @@ class Client {
 	public function download($siapath, $dest) {
 		$res = \Requests::get($this->apiaddr . '/renter/download/' . $siapath . '?destination=' . $dest, array('User-Agent' => 'Sia-Agent'));
 		return fopen($dest, 'r');
+	}
+
+	public function upload($siapath, $src) {
+		$this->apiPost('/renter/upload/' . $siapath . '?source=' . $src);
+	}
+
+	public function delete($siapath) {
+		$this->apiPost('/renter/delete/' . $siapath);
+	}
+
+	public function rename($siapath, $newsiapath) {
+		$this->apiPost('/renter/rename/' . $siapath . '?newsiapath=' . $newsiapath);
 	}
 }
 
