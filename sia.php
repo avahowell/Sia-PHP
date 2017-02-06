@@ -70,8 +70,7 @@ class Client {
 	// download downloads the file at $siapath to $dest. This is a blocking call
 	// and returns the file handle of the downloaded file.
 	public function download($siapath, $dest) {
-		$res = \Requests::get($this->apiaddr . '/renter/download/' . $siapath . '?destination=' . $dest, array('User-Agent' => 'Sia-Agent'));
-		return fopen($dest, 'r');
+		$this->apiGet('/renter/downloadasync/' . $siapath . '?destination=' . $dest);
 	}
 
 	public function upload($siapath, $src) {
