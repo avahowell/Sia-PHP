@@ -67,10 +67,13 @@ class Client {
 		return $this->apiGet('/renter/files')->files;
 	}
 
-	// download downloads the file at $siapath to $dest. This is a blocking call
-	// and returns the file handle of the downloaded file.
+	// download downloads the file at $siapath to $dest.
 	public function download($siapath, $dest) {
 		$this->apiGet('/renter/downloadasync/' . $siapath . '?destination=' . $dest);
+	}
+
+	public function downloads() {
+		return $this->apiGet('/renter/downloads')->downloads;
 	}
 
 	public function upload($siapath, $src) {
