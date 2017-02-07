@@ -67,6 +67,11 @@ class Client {
 		return $this->apiGet('/renter/files')->files;
 	}
 
+	// renterContracts returns the contracts being used by the renter
+	public function renterContracts() {
+		return $this->apiGet('/renter/contracts')->contracts;
+	}
+
 	// download downloads the file at $siapath to $dest.
 	public function download($siapath, $dest) {
 		$this->apiGet('/renter/downloadasync/' . $siapath . '?destination=' . $dest);
